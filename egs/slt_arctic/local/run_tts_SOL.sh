@@ -23,7 +23,7 @@ stage=0
 raw=raw
 data=data
 config=config
-dir=exp/BLSTM
+dir=exp/BLSTM_SOL
 add_delta=false
 kaldi_format=false
 export_graph=true
@@ -79,7 +79,7 @@ if [ $stage -le 1 ]; then
   [ ! -e $dir ] && mkdir -p $dir
   [ ! -e $dir/nnet ] && mkdir -p $dir/nnet
   echo "Training nnet"
-  CUDA_VISIBLE_DEVICES=0 TF_CPP_MIN_LOG_LEVEL=2 python $voicenet_dir/src/run_tts.py --save_dir=$dir "$@"
+  CUDA_VISIBLE_DEVICES=0 TF_CPP_MIN_LOG_LEVEL=2 python $voicenet_dir/src/run_tts_SOL.py --save_dir=$dir "$@"
 fi
 
 # Decode nnet
@@ -87,7 +87,7 @@ if [ $stage -le 2 ]; then
   [ ! -e $dir/test/cmp ] && mkdir -p $dir/test/cmp
   echo "Decoding nnet"
   # Disable gpu for decoding
-  CUDA_VISIBLE_DEVICES= TF_CPP_MIN_LOG_LEVEL=1 python $voicenet_dir/src/run_tts.py --decode --save_dir=$dir "$@"
+  CUDA_VISIBLE_DEVICES= TF_CPP_MIN_LOG_LEVEL=1 python $voicenet_dir/src/run_tts_SOL.py --decode --save_dir=$dir "$@"
 fi
 
 # Vocoder synthesis
@@ -101,6 +101,6 @@ fi
 if [ $stage -le 4 ]; then
   if $export_graph; then
     echo "Exporting graph"
-    CUDA_VISIBLE_DEVICES= TF_CPP_MIN_LOG_LEVEL=1 python $voicenet_dir/src/export_inference_graph.py  --output_file=$dir/acoustic_inf_graph.pb "$@"
+    CUDA_VISIBLE_DEVICES= TF_CPP_MIN_LOG_LEVEL=1 python $voicenet_dir/src/export_inference_graph_SOL.py  --output_file=$dir/acoustic_inf_graph.pb "$@"
   fi
 fi

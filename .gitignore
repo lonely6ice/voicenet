@@ -27,3 +27,6 @@ ENV/
 egs/**/config/
 egs/**/data/
 egs/**/exp/
+egs/slt_arctic/raw/prepared_cmp/param_scp/
+egs/slt_arctic/raw/prepared_label/label_scp/
+tools/

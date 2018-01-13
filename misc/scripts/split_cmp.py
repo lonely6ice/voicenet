@@ -51,9 +51,9 @@ if __name__ == '__main__':
 
         mgc = signal.convolve2d(
             cmp_mat[:, : 60], [[1.0 / 3], [1.0 / 3], [1.0 / 3]], mode="same", boundary="symm")
-        vuv = cmp_mat[:, 60]
-        lf0 = cmp_mat[:, 65]
-        bap = cmp_mat[:, 70:]
+        bap = cmp_mat[:, 60:65]
+        vuv = cmp_mat[:, 65]
+        lf0 = cmp_mat[:, 66:]
 
         lf0[vuv < 0.5] = inf_float
 
